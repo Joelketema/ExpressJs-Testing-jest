@@ -1,0 +1,9 @@
+import Joi from "joi";
+
+export const UserValidation = Joi.object({
+    username: Joi.string().min(6).max(255).required(),
+    name: Joi.string().required(),
+    email: Joi.string().email().required()
+});
+
+export const UserIdValidation = Joi.string().alphanum().required();
