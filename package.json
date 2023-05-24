@@ -5,7 +5,7 @@
     "scripts": {
         "start": "ts-node --esm src/index.ts",
         "dev": "nodemon --config nodemon.json src/app.ts",
-        "test": "jest --detectOpenHandles"
+        "test": "jest --detectOpenHandles --watchAll"
     },
     "license": "MIT",
     "devDependencies": {

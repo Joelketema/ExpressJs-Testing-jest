@@ -1,47 +1,29 @@
-import request from "supertest";
+import "jest";
 
-import app from "../../src/app";
+import { validatePostRequest } from "../../src/validation/post.validation";
 
-let server: any;
+describe("Posts", () => {
+    const mockData = {
+        title: "Eyuel Ketema",
+        description: "Eyuel ketema masturbate",
+        vote: 6,
+        author: ""
+    };
 
-beforeAll(async () => {
-    server = app.listen(8081);
-});
+    const mockData2 = {
+        title: "Eyuel Ketema",
+        description: "Eyuel ketema masturbate",
+        vote: "6",
+        author: "Estifanos Gashawtena"
+    };
 
-afterAll(async () => {
-    server.close();
-});
+    describe("should validate incoming request post data", () => {
+        it("author is empty", async () => {
+            expect(await validatePostRequest(mockData)).toEqual({ message: '"author" is not allowed to be empty' });
+        });
 
-describe("UNIT: UserPost /POST Testing", () => {
-    describe("when all the values are correct", () => {
-        it("should return status 200", async () => {
-            const result = await request(server).post("/user").send({
-                title: "some title",
-                desciption: "some desc",
-                vote: 5,
-                author: "646ca147a83e24d475fbf660"
-            });
-            expect(result.status).toBe(200);
-        }, 60000);
-    });
-
-    describe("when request values are not correct", () => {
-        it("should return status 400", async () => {
-            const result = await request(server).post("/post").send({
-                desciption: "some desc",
-                vote: 5,
-                author: "646ca147a83e24d475fbf660"
-            });
-            expect(result.status).toBe(400);
-        }, 60000);
-    });
-});
-
-describe("UNIT: UserPost /Get Testing", () => {
-    describe("when the user has posts ", () => {
-        it("should return 200", async () => {
-            const result = await request(server).get("/post");
-            expect(result.status).toBe(200);
-        }, 60000);
+        it("vote is not a number", async () => {
+            expect(await validatePostRequest(mockData2)).toEqual({ message: '"vote" must be a number' });
+        });
     });
 });

@@ -7,6 +7,7 @@ import { connectDB } from "./utils/connection.util";
 import * as dotenv from "dotenv";
 
 dotenv.config();
+const MONGO_URL = "mongodb+srv://EyuelKetema:1999010102@cluster0.qx218.mongodb.net/Social?retryWrites=true&w=majority";
 
 const app = express();
 
@@ -39,6 +40,6 @@ app.use((error: any, res: Response, next: NextFunction) => {
     }
 });
 
-connectDB(process.env["MONGO_URL"] ?? "");
+connectDB(MONGO_URL);
 
 export default app;

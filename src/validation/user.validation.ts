@@ -7,3 +7,13 @@ export const UserValidation = Joi.object({
 });
 
 export const UserIdValidation = Joi.string().alphanum().required();
+
+export const validateUserRequest = async (user: any): Promise<{ message: string }> => {
+    const { error } = UserValidation.validate(user, {
+        convert: false
+    });
+
+    if (error) return { message: error.details[0].message };
+
+    return { message: "Success" };
+};

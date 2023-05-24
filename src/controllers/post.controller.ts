@@ -15,10 +15,7 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
     try {
         const postModelValidate: IPost = await PostValidation.validateAsync(req.body);
 
-        if (!postModelValidate)
-            return res.status(400).json({
-                message: "Invalid details provided"
-            });
+        console.log(postModelValidate);
 
         const post = new Post({
             title: postModelValidate.title,

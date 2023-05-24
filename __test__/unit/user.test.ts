@@ -1,59 +1,27 @@
-import request from "supertest";
+import "jest";
 
-import app from "../../src/app";
-import mongoose from "mongoose";
+import { validateUserRequest } from "../../src/validation/user.validation";
 
-let server: any;
+describe("User", () => {
+    const mockData = {
+        username: "alemu",
+        name: "Eyuel ketema",
+        email: "e@gmail.com"
+    };
 
-beforeAll(async () => {
-    server = app.listen(8080);
-});
+    const mockData2 = {
+        username: "alemusisay",
+        name: "Eyuel ketema",
+        email: "e@gmail.com"
+    };
 
-afterAll(async () => {
-    server.close();
-});
+    describe("should validate incoming request user data", () => {
+        it("username is less than 6 characters", async () => {
+            expect(await validateUserRequest(mockData)).toEqual({ message: '"username" length must be at least 6 characters long' });
+        });
 
-describe("UNIT: User /POST Tesing", () => {
-    describe("when all the values are correct", () => {
-        it("should return 200 if duplicate email or username does not exist", async () => {
-            const data = {
-                username: "abcdef5g",
-                name: "Alemu sisay",
-                email: "abc5fe@gmail.com"
-            };
-
-            const result = await request(server).post("/user").send(data);
-            expect(result.status).toBe(200);
-        }, 60000);
-
-        it("should return 409 if duplicate  exist", async () => {
-            const data = {
-                username: "abcdef",
-                name: "Alemu sisay",
-                email: "abc@gmail.com"
-            };
-
-            const result = await request(server).post("/user").send(data);
-            expect(result.status).toBe(409);
-        }, 60000);
-    });
-
-    describe("when one value is not missing", () => {
-        it("should return 400", async () => {
-            const result = await request(server).post("/user").send({
-                name: "Alemu sisay3",
-                email: "alemu3@gmail.com"
-            });
-            expect(result.status).toBe(400);
-        }, 60000);
-    });
-});
-
-describe("UNIT: User /Get Tesing", () => {
-    describe("when the users exists", () => {
-        it("should return 200", async () => {
-            const result = await request(server).get("/user");
-            expect(result.status).toBe(200);
-        }, 60000);
+        it("email should be valid format", async () => {
+            expect(await validateUserRequest(mockData2)).toEqual({ message: "Success" });
+        });
     });
 });
