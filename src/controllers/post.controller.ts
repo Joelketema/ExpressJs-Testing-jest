@@ -15,8 +15,6 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
     try {
         const postModelValidate: IPost = await PostValidation.validateAsync(req.body);
 
-        console.log(postModelValidate);
-
         const post = new Post({
             title: postModelValidate.title,
             description: postModelValidate.description,
@@ -25,12 +23,12 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
         });
 
         const savedPost = await post.save();
-        return res.status(200).json(savedPost);
+        return res.status(200).send(savedPost);
     } catch (error: any) {
         if (error.isJoi === true) {
             return next(
                 res.status(400).json({
-                    message: "Invalid details provided."
+                    message: "Invalid details provided"
                 })
             );
         }
@@ -113,7 +111,7 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
     } catch (error: any) {
         if (error.isJoi === true) {
             return res.status(400).json({
-                message: "Invalid details provided."
+                message: "Invalid details provided"
             });
         }
         next(error);
@@ -154,7 +152,7 @@ export const updatePost = async (req: Request, res: Response, next: NextFunction
         if (error.isJoi === true) {
             return next(
                 res.status(400).json({
-                    message: "Invalid details provided."
+                    message: "Invalid details provided"
                 })
             );
         }

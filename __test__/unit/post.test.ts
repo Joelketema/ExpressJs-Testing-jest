@@ -1,5 +1,3 @@
-import "jest";
-
 import { validatePostRequest } from "../../src/validation/post.validation";
 
 describe("Posts", () => {

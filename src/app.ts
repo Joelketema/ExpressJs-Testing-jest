@@ -5,9 +5,8 @@ import postRoute from "./routes/post.route";
 import userRoute from "./routes/user.route";
 import { connectDB } from "./utils/connection.util";
 import * as dotenv from "dotenv";
-
+import { MONGO_URL } from "./config";
 dotenv.config();
-const MONGO_URL = "mongodb+srv://EyuelKetema:1999010102@cluster0.qx218.mongodb.net/Social?retryWrites=true&w=majority";
 
 const app = express();
 

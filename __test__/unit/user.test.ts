@@ -1,5 +1,3 @@
-import "jest";
-
 import { validateUserRequest } from "../../src/validation/user.validation";
 
 describe("User", () => {
@@ -15,13 +13,11 @@ describe("User", () => {
         email: "e@gmail.com"
     };
 
-    describe("should validate incoming request user data", () => {
-        it("username is less than 6 characters", async () => {
-            expect(await validateUserRequest(mockData)).toEqual({ message: '"username" length must be at least 6 characters long' });
-        });
+    it("username is less than 6 characters", async () => {
+        expect(await validateUserRequest(mockData)).toEqual({ message: '"username" length must be at least 6 characters long' });
+    });
 
-        it("email should be valid format", async () => {
-            expect(await validateUserRequest(mockData2)).toEqual({ message: "Success" });
-        });
+    it("email should be valid format", async () => {
+        expect(await validateUserRequest(mockData2)).toEqual({ message: "Success" });
     });
 });

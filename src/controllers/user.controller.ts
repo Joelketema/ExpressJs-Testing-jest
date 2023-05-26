@@ -42,7 +42,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     } catch (error: any) {
         if (error.isJoi === true) {
             return res.status(400).send({
-                message: "Invalid details provided."
+                message: "Invalid details provided"
             });
         }
         next(error);
@@ -95,7 +95,7 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
     } catch (error: any) {
         if (error.isJoi === true) {
             return res.status(400).json({
-                message: "Invalid details provided."
+                message: "Invalid details provided"
             });
         }
         next(error);
@@ -128,7 +128,7 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
     } catch (error: any) {
         if (error.isJoi === true) {
             return res.status(400).json({
-                message: "Invalid details provided."
+                message: "Invalid details provided"
             });
         }
         next(error);
